@@ -12,6 +12,12 @@
         "Maybe it's the wrong file. Maybe it's the wrong branch. Maybe it's already pushed.",
         "Git has four tools for this: restore, reset, revert, and reflog.",
         "They look similar, but they do very different things. Pick the wrong one, and you can lose work, or rewrite history your team depends on."
+      ],
+      "sentences_te": [
+        "Meeru oka commit chesaru, tarvata sudden ga — oops, idi wrong commit ani artham ayyindi.",
+        "Git lo undo cheyyadaniki naalu tools unnaayi: restore, reset, revert, mariyu reflog.",
+        "Correct tool select chesthe, padi nimishaallo fix avutundi. Tappu tool use chesthe, andari branches paadaipotaayi.",
+        "Ila jarigite eemi cheyaali? Adi artham chesukovalante, meeru work chesey naalu places artham chesukovalsi untundi."
       ]
     },
     {
@@ -23,6 +29,14 @@
         "HEAD points to the commit you are currently on.",
         "Each undo command touches a different combination of these places.",
         "Keep that picture in mind, because every command that follows moves something between these three places."
+      ],
+      "sentences_te": [
+        "Meeru work chese naalu places — oka picture lo chooddam.",
+        "Working directory ante meeru files untaay aa folder.",
+        "git add chesthe, aa changes Index ki, ante staging area ki velatayi.",
+        "git commit chesthe, aa changes repository lo store avutaayi — ikkade commits untaayi.",
+        "Prathi undo command — ee moodu places madhya em move avutundoo aa oka point artham chesukovalsi untundi.",
+        "Ee picture mind lo pettukonte, oka command choodagaane — idi ekkadi nunchi ekkadiki move avutundo telustuundi."
       ]
     },
     {
@@ -33,6 +47,14 @@
         "If you edited a file and want it back the way it was, git restore, then the file name, discards that change from the working directory.",
         "If you already ran git add, git restore with the staged flag moves the file back out of the index, but keeps your edit.",
         "Restore never touches your commits. It only fixes the files and the index."
+      ],
+      "sentences_te": [
+        "Scenario okati — debugging chestunaamu, app.py lo anni chotoola print statements pettaamu.",
+        "Bug fix ayyindi, ippudu aa prints anni teyyaali. Inka commit cheyyaledu.",
+        "git restore app.txt run cheyyandi — file last committed state ki tirigipotundi.",
+        "Ippatakey git add chesthe, mundu git restore --staged app.txt run cheyyandi.",
+        "Adi file ni staging area nunchi bayataki teestuundi, kaani meeru edit alaaney untundi.",
+        "Restore ante — files mariyu index matrame. Commits ni eppudu touch cheyyadu."
       ]
     },
     {
@@ -45,6 +67,14 @@
         "With mixed, the default, the branch moves and the index resets, so your changes stay in your files, but unstaged.",
         "With hard, everything resets: the branch, the index, and your files. Your changes are gone from the working directory.",
         "One more detail: hard reset does not delete untracked files."
+      ],
+      "sentences_te": [
+        "Scenario rendu — commit chesaamu, tarvata oka file add cheyyatam marchaamu ani artham ayyindi.",
+        "Aa commit inka laptop lo matrame undi, push cheyyaledu.",
+        "git reset --soft HEAD~1 run cheyyandi — branch oka commit venakki velluundi.",
+        "Kaani anni changes staged ganey untaayi — ready to commit again.",
+        "Marchaapoyina file ni add chesi, malli commit cheyyandi. Oka clean commit, emee poyyledu.",
+        "soft ivvakapothe default mixed mode vastundi — same idea, kaani changes unstaged ga vastaayi."
       ]
     },
     {
@@ -55,6 +85,13 @@
         "But if the bad commit is already pushed to a shared branch, do not rewrite history.",
         "Use git revert. It creates a brand new commit that applies the opposite change.",
         "The original bad commit stays in history, so everyone's copy still lines up, and nobody has to repair their branch."
+      ],
+      "sentences_te": [
+        "Scenario moodu — oka experiment chesaamu, commit chesaamu, kaani complete ga fail ayyindi.",
+        "Ee commit inkarika దగ్గర లేదు, daanni purtiga teyyaali.",
+        "git reset --hard HEAD~1 run cheyyandi — branch, index, mariyu meeru files anni oka commit venakki velutayi.",
+        "Idi work paresee mode — ikkade Enter nockkey mundu okasaari check cheyyandi.",
+        "Oka vishayam — untracked files delete kaavvu."
       ]
     },
     {
@@ -65,6 +102,14 @@
         "It isn't gone. Git keeps a local journal of where HEAD has been, called the reflog.",
         "Run git reflog, find the line for your lost commit, and reset hard back to it.",
         "The reflog is local, and old entries expire eventually, so recover quickly."
+      ],
+      "sentences_te": [
+        "Scenario naalu — Friday evening. Main branch lo oka bad commit undi, deploy ayyindi, teammates pull chesukunnaru.",
+        "Ikkada reset cheyyadam tappuu, force-push mathram cheyyadam tappuu — adi history rewrite chestuundi, andari branches paadaipotaayi.",
+        "Baduluga, aa commit hash tho git revert run cheyyandi.",
+        "Git oka brand new commit create chestuundi — aa change ki exactly opposite.",
+        "Push cheyyandi, pipeline fix ni deploy chestuundi. Paata commit history lo unte, andari branches sari ga untaayi.",
+        "Shared branches mida safe undo ante revert."
       ]
     },
     {
@@ -77,6 +122,14 @@
         "Start over, and run git reset hard. Git status is empty, and the file is back to how it looked at B.",
         "Now the rescue. Git reflog shows the reset, and right below it, the commit called C, oops.",
         "Reset hard to HEAD at one, in braces, and the file is back. That is the safety net, working."
+      ],
+      "sentences_te": [
+        "Scenario aidu — reset --hard run chesaamu, oka commit ekkuva venakki vellaamu, oka rojuu pani motham git log lo kaanipistuunledu.",
+        "Panic avvakaandi. HEAD ekkadiki point chesindo Git oka private journal lo raastuundi.",
+        "Daanini reflog antaaru. git reflog run cheyyandi.",
+        "Poyyina commit unna line ni choodandi, aa entry ki reset --hard cheyyandi — udaaharanaki HEAD@{1}.",
+        "Meeru pani tirigostundi. Rendu warnings: reflog meeru machine lo matrame untundi, paata entries expire avutaayi.",
+        "Commit cheyyani edits ni idi kaapaadale."
       ]
     },
     {
@@ -87,6 +140,14 @@
         "One: resetting a commit that is already pushed, then force-pushing. Teammates' branches now disagree with yours. If you must force-push, use force with lease, and tell the team first.",
         "Two: running reset hard with edits you never committed. The reflog tracks commits, so changes that were never committed are generally gone for good.",
         "Three: believing revert removes a secret. It doesn't. The old commit stays in history, so rotate the credential first, then clean history if needed."
+      ],
+      "sentences_te": [
+        "Interviews lo commands list cheyyamani evvaru adagaru. Scenario isthaaru.",
+        "Manchii answer oka order lo untundi: impact, evidence, investigation, mitigation, communication, permanent fix, mariyu prevention.",
+        "Ikkada mitigation ante git revert — eemdukante main shared branch.",
+        "Permanent fix ante tested change okati.",
+        "Prevention ante branch protection mariyu required checks.",
+        "Mundu production ni stable cheyyandi, tarvata investigate cheyyandi, aa tarvata root cause fix cheyyandi."
       ]
     },
     {
@@ -98,6 +159,13 @@
         "A strong answer follows a framework: impact, evidence, investigation, immediate mitigation, communication, permanent fix, and prevention.",
         "Here, the mitigation is git revert, because main is shared. The permanent fix is a tested change, and prevention is branch protection and required checks.",
         "Notice the order: stabilise production first, then investigate, and only then fix the cause."
+      ],
+      "sentences_te": [
+        "Quick recap. Restore — files fix chestuundi. Reset — branch ni move chestuundi, meeru machine lo matrame.",
+        "Revert — shared branches mida safely undo chestuundi. Reflog — ekkuva venakki vellinappudu kaapaadutuundi.",
+        "Ivi anni git-command-master-map repository lo undo and reflog lab lo practice cheyyavachu — link description lo undi.",
+        "Prathi command ni rendu saarluu run cheyyandi: okasaari result ni predict cheyyataniki, okasaari confirm cheyyataniki.",
+        "Kokoro DevOps ni subscribe cheyyandi, next ela Git scenario explain cheyyaalo comments lo cheppandi."
       ]
     },
     {
@@ -125,6 +193,15 @@
       "Slipped? Git reflog keeps a journal of where your branch has been.",
       "Find the lost commit there, and reset hard back to it.",
       "Follow for more Git scenarios, explained visually."
+    ],
+    "sentences_te": [
+      "Git lo undo cheyyadaniki nalugu tools unnaayi.",
+      "Reset ante — branch ni venakki move chestuundi.",
+      "Soft ante changes staged ga untaayi, mixed ante unstaged ga untaayi, hard ante changes poyipotaayi.",
+      "Ekkuva venakki vellinappudu? Panic avvakaandi.",
+      "git reflog run cheyyandi — HEAD ekkadiki point chesindo Git journal lo raastuundi.",
+      "Aa entry ni choodandi, reset --hard tho tirigirandi.",
+      "Ila bayataki raani vishayaniki solution dorikipoyindi. Follow cheyyandi."
     ]
   },
   "display_rules": [
@@ -144,5 +221,12 @@
       "git reset",
       "git reset"
     ]
-  ]
+  ],
+  "tts_te": {
+    "provider": "sarvam",
+    "model": "bulbul:v3",
+    "speaker": "Manan",
+    "language": "te-IN",
+    "pace": 0.95
+  }
 }
