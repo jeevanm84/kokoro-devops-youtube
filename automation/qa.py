@@ -32,7 +32,7 @@ def run(ep):
         res.append({"group": group, "check": name, "status": "MANUAL" if manual else ("PASS" if ok else "FAIL"), "detail": str(detail)})
     E = ep_dir(ep); B = build_dir(ep)
     tv = B / "technical_validation.json"
-    chk("Technical accuracy", "all on-screen claims executed against CPython", tv.exists() and json.load(open(tv))["all_pass"],
+    chk("Technical accuracy", "all on-screen claims executed against the real tool (CPython or Git)", tv.exists() and json.load(open(tv))["all_pass"],
         f"{len(json.load(open(tv))['checks'])} checks" if tv.exists() else "missing")
     # ---------- main video ----------
     vp = E / "youtube-video.mp4"; g = "Main video"

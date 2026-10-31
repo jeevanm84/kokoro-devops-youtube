@@ -6,7 +6,7 @@
 
 | Status | Check | Detail |
 |---|---|---|
-| PASS | all on-screen claims executed against CPython | 10 checks |
+| PASS | all on-screen claims executed against the real tool (CPython or Git) | 10 checks |
 
 ## Main video
 
