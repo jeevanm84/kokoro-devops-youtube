@@ -1,0 +1,43 @@
+# UNTESTED in CI (authored in a sandbox without GitHub access). Run it manually first via "Run workflow".
+name: produce-episode
+on:
+  workflow_dispatch:
+    inputs:
+      episode: { description: "Episode folder name", default: "episode-001", required: true }
+  # Weekly schedule is intentionally disabled until the pipeline has passed a full CI run.
+  # Monday 15:00 Asia/Kolkata == 09:30 UTC (GitHub cron is UTC and may be delayed):
+  # schedule:
+  #   - cron: "30 9 * * 1"
+concurrency:
+  group: produce-${{ github.event.inputs.episode || 'scheduled' }}
+  cancel-in-progress: false
+permissions: { contents: read }
+jobs:
+  produce:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 120
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: "3.12", cache: pip }
+      - run: sudo apt-get update && sudo apt-get install -y ffmpeg libcairo2-dev libpango1.0-dev pkg-config fonts-dejavu-core
+      - run: pip install -r requirements.txt
+      - uses: actions/cache@v4
+        with: { path: assets/models, key: kokoro-v1.0 }
+      - uses: actions/cache@v4
+        with: { path: .cache, key: tts-${{ hashFiles(format('episodes/{0}/script.json', github.event.inputs.episode)) }}, restore-keys: tts- }
+      - run: sh automation/setup_models.sh
+      - run: python automation/pipeline.py run ${{ github.event.inputs.episode }}
+      - if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ github.event.inputs.episode }}-package
+          retention-days: 30
+          path: |
+            episodes/${{ github.event.inputs.episode }}/*.mp4
+            episodes/${{ github.event.inputs.episode }}/*.png
+            episodes/${{ github.event.inputs.episode }}/*.json
+            episodes/${{ github.event.inputs.episode }}/*.md
+            episodes/${{ github.event.inputs.episode }}/subtitles/
+            episodes/${{ github.event.inputs.episode }}/build/qa.json
+            episodes/${{ github.event.inputs.episode }}/build/state.json
