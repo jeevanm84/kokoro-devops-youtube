@@ -24,7 +24,7 @@ class S01(BrandScene):
         self.play(Write(cmd), run_time=1.4)
         self.play(GrowArrow(a1), FadeIn(box), Write(q), run_time=1.0)
         self.play(GrowArrow(a2), FadeIn(VGroup(out, outt)), run_time=1.0)
-        self.at(1, Indicate(q, color=AMBER, scale_factor=1.3), rt=1.2)
+        self.at(1, pulse(q, color=AMBER, scale_factor=1.3), rt=1.2)
         ask = VGroup(T("interpreted?", 44, VIOLET), T("or", 34, MUTED), T("compiled?", 44, PINK)).arrange(RIGHT, buff=0.55).move_to([0.2, 2.95, 0])
         self.at(2, LaggedStart(*[FadeIn(m, shift=DOWN * 0.3) for m in ask], lag_ratio=0.5), rt=1.8)
         both = fit(T("BOTH", 64, AMBER, weight=BOLD), 2.7).move_to(box)
@@ -83,9 +83,9 @@ class S03(BrandScene):
         for i in range(4):
             self.at(i + 1, GrowArrow(arrows[i]), FadeIn(sl[i], shift=DOWN * 0.2), rt=0.8)
             self.play(pk.animate.move_to(top(ns[i + 1])), FadeIn(ns[i + 1]), FadeIn(sub[i + 1]), run_time=1.0)
-            self.play(Indicate(ns[i + 1], color=cols[i + 1], scale_factor=1.12), run_time=0.7)
+            self.play(pulse(ns[i + 1], color=cols[i + 1], scale_factor=1.12), run_time=0.7)
         self.play(FadeOut(pk), run_time=0.3)
-        self.at(5, *[Indicate(n, scale_factor=1.1) for n in ns], rt=1.2)
+        self.at(5, *[pulse(n, scale_factor=1.1) for n in ns], rt=1.2)
         self.finish()
 
 
@@ -96,7 +96,7 @@ class S04(BrandScene):
         toks = [t for t, _ in TOKENS]; kinds = [k for _, k in TOKENS]; cols = [CYAN, AMBER, CYAN, AMBER, GREEN]
         tm = VGroup(*[M(t, 44, c) for t, c in zip(toks, cols)]).arrange(RIGHT, buff=0.3).move_to(UP * 2.75)
         self.at(0, Write(tm), rt=1.5)
-        self.play(Indicate(tm, color=AMBER, scale_factor=1.05), run_time=0.8)
+        self.play(pulse(tm, color=AMBER, scale_factor=1.05), run_time=0.8)
         spread = tm.copy().arrange(RIGHT, buff=0.85).move_to(UP * 2.75)
         boxes = VGroup(*[SurroundingRectangle(t, color=c, buff=0.14, corner_radius=0.1) for t, c in zip(spread, cols)])
         kl = VGroup(*[T(k, 20, c).next_to(b, DOWN, buff=0.1) for k, b, c in zip(kinds, boxes, cols)])
@@ -113,12 +113,12 @@ class S04(BrandScene):
         edges = [ln(assign, tgt), ln(assign, binop), ln(binop, lft), ln(binop, op), ln(binop, rgt)]
         self.at(2, FadeIn(assign, shift=DOWN * 0.3), rt=0.8)
         self.play(*[Create(e) for e in edges[:2]], FadeIn(tgt), FadeIn(binop), run_time=1.0)
-        self.at(3, Indicate(assign, color=VIOLET), rt=1.0)
+        self.at(3, pulse(assign, color=VIOLET), rt=1.0)
         self.play(*[Create(e) for e in edges[2:]], FadeIn(lft), FadeIn(op), FadeIn(rgt), run_time=1.4)
-        self.play(Indicate(binop, color=GREEN, scale_factor=1.15), run_time=0.9)
+        self.play(pulse(binop, color=GREEN, scale_factor=1.15), run_time=0.9)
         err = boxed(VGroup(T("SyntaxError", 22, RED, weight=BOLD), T("caught here,\nbefore running", 18, TEXT)).arrange(DOWN, buff=0.15), RED, 0.3, "#2A1215")
         err.move_to([-5.3, -1.7, 0])
-        self.at(4, Indicate(VGroup(assign, tgt, binop, lft, op, rgt), scale_factor=1.04), rt=1.4)
+        self.at(4, pulse(VGroup(assign, tgt, binop, lft, op, rgt), scale_factor=1.04), rt=1.4)
         self.play(FadeIn(err, shift=RIGHT * 0.4), run_time=1.0)
         self.finish()
 
@@ -147,6 +147,6 @@ class S05(BrandScene):
             self.play(hl.animate.become(SurroundingRectangle(tbl[k], color=AMBER, buff=0.07, corner_radius=0.08)), run_time=0.55)
             self.wait(0.55)
         self.at(4, FadeOut(hl), GrowArrow(arr2), FadeIn(arr2_l), FadeIn(cop), rt=1.2)
-        self.play(Indicate(dp, color=GREEN, scale_factor=1.02), run_time=0.8)
+        self.play(pulse(dp, color=GREEN, scale_factor=1.02), run_time=0.8)
         self.at(5, GrowArrow(a3), FadeIn(a3_l), FadeIn(pyc), rt=1.2)
         self.finish()

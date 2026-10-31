@@ -16,7 +16,7 @@ class S01(BrandScene):
         self.play(FadeIn(stamp, scale=1.6), run_time=0.6)
         self.at(1, LaggedStart(*[FadeIn(p, shift=LEFT * 0.4) for p in probs], lag_ratio=0.5), rt=2.0)
         self.at(2, LaggedStart(*[FadeIn(x, shift=UP * 0.3) for x in tools], lag_ratio=0.3), rt=1.8)
-        self.at(3, *[Indicate(x, scale_factor=1.1) for x in tools], rt=1.4)
+        self.at(3, *[pulse(x, scale_factor=1.1) for x in tools], rt=1.4)
         self.finish()
 
 
@@ -36,7 +36,7 @@ class S02(BrandScene):
         self.at(0, FadeIn(q), rt=0.8)
         self.at(1, LaggedStart(FadeIn(cards[0]), GrowArrow(arr[0]), FadeIn(lab[0]), FadeIn(cards[1]), GrowArrow(arr[1]), FadeIn(lab[1]), FadeIn(cards[2]), lag_ratio=0.3), rt=3.2)
         self.at(2, FadeIn(chain), FadeIn(head), rt=1.2)
-        self.at(3, *[Indicate(c, scale_factor=1.06) for c in cards], rt=2.0)
+        self.at(3, *[pulse(c, scale_factor=1.06) for c in cards], rt=2.0)
         self.at(4, FadeIn(fit(T("Every undo command moves something between these places", 28, AMBER), 12.4).move_to([0, -2.5, 0])), rt=1.2)
         self.finish()
 

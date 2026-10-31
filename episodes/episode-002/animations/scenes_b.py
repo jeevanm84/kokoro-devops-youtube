@@ -91,7 +91,7 @@ class S09(BrandScene):
         self.at(1, FadeIn(sc), rt=1.0)
         self.at(2, LaggedStart(*[FadeIn(n_, shift=UP * 0.2) for n_ in ns], lag_ratio=0.25), *[Create(a_) for a_ in ar], Create(elbow), rt=3.8)
         self.at(3, LaggedStart(*[FadeIn(m) for m in capm], lag_ratio=0.5), rt=2.4)
-        self.at(4, *[Indicate(n_, scale_factor=1.08) for n_ in ns], rt=2.0)
+        self.at(4, *[pulse(n_, scale_factor=1.08) for n_ in ns], rt=2.0)
         self.finish()
 
 
@@ -107,7 +107,7 @@ class S10(BrandScene):
         note = T("Predict the result, then run it.", 24, MUTED).move_to([0, -2.5, 0])
         self.at(0, FadeIn(T("Practise in a safe sandbox", 34, TEXT).move_to([0, 3.15, 0])), rt=0.8)
         self.at(1, FadeIn(repo), rt=1.0)
-        self.at(2, Indicate(repo, color=AMBER, scale_factor=1.03), rt=1.0)
+        self.at(2, pulse(repo, color=AMBER, scale_factor=1.03), rt=1.0)
         self.at(3, LaggedStart(*[FadeIn(c, shift=UP * 0.3) for c in chips], lag_ratio=0.5), rt=3.0)
         self.at(4, FadeIn(btn), FadeIn(nxt), rt=1.0)
         self.at(5, FadeIn(note), rt=1.0)

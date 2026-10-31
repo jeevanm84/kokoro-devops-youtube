@@ -110,3 +110,8 @@ def instr_table(rows, fs=22, step=0.6):
             cols[j][i].move_to([xs[j] - tw / 2, -i * step, 0], aligned_edge=LEFT); row.add(cols[j][i])
         out.add(row)
     return out.move_to(ORIGIN)
+
+def pulse(m, color=AMBER, **_ignored):
+    """Highlight without recolouring: draws a moving outline around m. (Indicate() repaints the whole
+    mobject, so filled cards became solid blocks with invisible text.)"""
+    return Circumscribe(m, color=color, buff=0.1, time_width=0.6, stroke_width=6)

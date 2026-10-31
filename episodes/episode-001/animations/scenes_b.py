@@ -74,7 +74,7 @@ class S07(BrandScene):
         self.at(3, ReplacementTransform(h, h2), rt=0.5)
         self.play(FadeIn(yt), GrowArrow(ay), run_time=0.9)
         self.at(4, Transform(obj[3], M("refcount: 2", 22, AMBER).move_to(obj[3])), rt=0.7)
-        self.play(Indicate(obj[3], color=AMBER, scale_factor=1.3), run_time=0.8)
+        self.play(pulse(obj[3], color=AMBER, scale_factor=1.3), run_time=0.8)
         h3 = hl(2); v4 = M("[1, 2, 3, 4]", 30, TEXT).move_to(obj[2]); note = T("x sees it too", 20, VIOLET).next_to(xt, UP, buff=0.12)
         self.at(5, ReplacementTransform(h2, h3), rt=0.4)
         self.play(Transform(obj[2], v4), FadeIn(note), run_time=0.8)
@@ -148,7 +148,7 @@ class S09(BrandScene):
         self.at(0, FadeIn(ask), rt=0.8)
         for i in range(4):
             self.at(i + 1, FadeIn(cards[i], shift=UP * 0.4), rt=0.9)
-            self.play(Indicate(cards[i][2], color=WHITE, scale_factor=1.08), run_time=0.7)
+            self.play(pulse(cards[i][2], color=WHITE, scale_factor=1.08), run_time=0.7)
         self.finish()
 
 
@@ -170,5 +170,5 @@ class S10(BrandScene):
         btn[1].move_to(btn[0]); btn.move_to([-4.2, -2.15, 0])
         nxt = T("Which system should we visualize next?\nTell me in the comments.", 26, TEXT, line_spacing=0.9); fit(nxt, 7.6).move_to([1.8, -2.15, 0])
         self.at(4, FadeIn(btn, shift=UP * 0.3), rt=0.8)
-        self.play(FadeIn(nxt), Indicate(btn, color=WHITE, scale_factor=1.08), run_time=1.0)
+        self.play(FadeIn(nxt), pulse(btn, color=WHITE, scale_factor=1.08), run_time=1.0)
         self.finish()
