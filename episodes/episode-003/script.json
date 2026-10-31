@@ -1,0 +1,123 @@
+{
+  "episode": "episode-003",
+  "title": "How Docker Containers Actually Work — Explained Visually",
+  "tts": {
+    "provider": "kokoro",
+    "voice": "af_heart",
+    "speed": 0.88
+  },
+  "scenes": [
+    {
+      "id": "s01",
+      "chapter": "The lie you were told",
+      "sentences": [
+        "You have probably heard that a container is like a lightweight virtual machine.",
+        "That is wrong, and the misunderstanding causes real production bugs.",
+        "A container is an ordinary Linux process.",
+        "It just cannot see most of the rest of the system, and it cannot consume more than its share of CPU and memory.",
+        "Let us prove it, and understand why it matters."
+      ]
+    },
+    {
+      "id": "s02",
+      "chapter": "Scenario: containers fighting for memory",
+      "sentences": [
+        "Scenario one. You deploy two services on the same EC2 instance without resource limits.",
+        "One service has a memory leak. An hour later, the other service starts crashing with out-of-memory errors, even though it is perfectly healthy.",
+        "This is a real incident pattern. The fix is cgroups, but first you need to understand what a container actually is."
+      ]
+    },
+    {
+      "id": "s03",
+      "chapter": "Namespaces: the isolation layer",
+      "sentences": [
+        "Linux namespaces are the first half of the answer.",
+        "A namespace is a filter. Processes inside one namespace see only the resources inside it.",
+        "The PID namespace gives every container its own process table, so the main process is PID one inside the container, even though it has a different number on the host.",
+        "The net namespace gives it a private network stack: its own interfaces, routing table and ports.",
+        "The mnt namespace gives it its own filesystem view, which is where the container image comes in.",
+        "There are six namespace types in total. Docker sets all of them up when you run a container."
+      ]
+    },
+    {
+      "id": "s04",
+      "chapter": "cgroups: the resource limit layer",
+      "sentences": [
+        "Namespaces hide things. cgroups limit things.",
+        "A control group is a kernel bookkeeping entry that tracks and caps CPU and memory use for a set of processes.",
+        "When you pass the memory flag to docker run, Docker writes that limit into a cgroup, and the kernel enforces it hard.",
+        "Without a limit, one leaking process can starve every other container on the host.",
+        "Always set memory and CPU limits in production. It is a one-line fix that prevents our scenario entirely."
+      ]
+    },
+    {
+      "id": "s05",
+      "chapter": "The layered filesystem",
+      "sentences": [
+        "The third piece is the filesystem.",
+        "A Docker image is a stack of read-only layers. Each instruction in your Dockerfile adds one layer.",
+        "When a container starts, Docker adds a thin writable layer on top. That layer is private to this container.",
+        "When the container writes a file that already exists in a lower layer, it copies the file up first. This is called copy-on-write.",
+        "This is why images are small and start fast, and why deleting a file in a later Dockerfile layer does not shrink the image."
+      ]
+    },
+    {
+      "id": "s06",
+      "chapter": "Scenario: the slow build",
+      "sentences": [
+        "Scenario two. Your image is two gigabytes and every build reinstalls all packages, even when you changed one line of code.",
+        "The reason is layer caching. Docker caches each layer by its content. The moment a layer changes, every layer above it is invalidated.",
+        "The fix: copy only your dependency manifest first, install packages, then copy the rest of the code.",
+        "One code change now invalidates only the last layer. A five-minute build drops to thirty seconds."
+      ]
+    },
+    {
+      "id": "s07",
+      "chapter": "What docker run actually does",
+      "sentences": [
+        "When you run docker run, four things happen in under a second.",
+        "Docker pulls the image layers if they are not already cached locally.",
+        "It creates a cgroup entry for the new container.",
+        "It sets up all six namespaces.",
+        "It starts your process inside that namespace-and-cgroup cage.",
+        "There is no boot sequence, no guest kernel, no hypervisor.",
+        "You can see the container as a process on the host with ps aux right now. The host is never hidden from itself."
+      ]
+    },
+    {
+      "id": "s08",
+      "chapter": "Interview answer: containers vs VMs",
+      "sentences": [
+        "Interviewers rarely ask for definitions. They ask you to compare containers and VMs under pressure.",
+        "Isolation: a VM has its own kernel; a container shares the host kernel, so a kernel exploit can in theory escape the container.",
+        "Startup: a VM boots in tens of seconds; a container starts in milliseconds because there is no boot sequence.",
+        "Overhead: a VM image carries a full OS; a container image is your application and its dependencies on top of shared layers.",
+        "Neither is strictly better. VMs win on isolation. Containers win on density and speed.",
+        "On the job, production Kubernetes clusters use both: VMs as nodes, containers as workloads."
+      ]
+    },
+    {
+      "id": "s09",
+      "chapter": "Recap and lab",
+      "sentences": [
+        "Recap. Namespaces isolate. cgroups limit. Layered filesystems make images small and fast.",
+        "A container is a process with a filtered view of the system and a resource cap.",
+        "Always set resource limits. Order your Dockerfile so slow layers come first and change rarely.",
+        "The hands-on lab is in the docker-zero-to-production repository. Link in the description.",
+        "Subscribe to Kokoro DevOps and tell me which container scenario to explain next."
+      ]
+    }
+  ],
+  "short": {
+    "id": "short",
+    "sentences": [
+      "A container is not a mini virtual machine.",
+      "It is a Linux process with three things applied to it.",
+      "Namespaces, so it cannot see the rest of the system.",
+      "cgroups, so it cannot consume more than its share of memory and CPU.",
+      "And a layered filesystem, so it starts in half a second.",
+      "No guest kernel. No boot. Just your process in a cage.",
+      "Follow for more visual explainers on how software really works."
+    ]
+  }
+}
