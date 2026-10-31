@@ -24,7 +24,7 @@
 | PASS | no clipping (peak <= -1 dB) | max -1.5 dB |
 | PASS | no dead-air > 2.5 s | [] |
 | PASS | embedded subtitle track |  |
-| PASS | file size sane (<2 GB) | 15.6 MB |
+| PASS | file size sane (<2 GB) | 15.2 MB |
 
 ## Subtitles
 

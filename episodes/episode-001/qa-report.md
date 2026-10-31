@@ -6,7 +6,7 @@
 
 | Status | Check | Detail |
 |---|---|---|
-| PASS | all on-screen claims executed against CPython | 17 checks |
+| PASS | all on-screen claims executed against the real tool (CPython or Git) | 17 checks |
 
 ## Main video
 
@@ -24,7 +24,7 @@
 | PASS | no clipping (peak <= -1 dB) | max -1.4 dB |
 | PASS | no dead-air > 2.5 s | [] |
 | PASS | embedded subtitle track |  |
-| PASS | file size sane (<2 GB) | 16.2 MB |
+| PASS | file size sane (<2 GB) | 15.8 MB |
 
 ## Subtitles
 
@@ -32,9 +32,9 @@
 |---|---|---|
 | PASS | ordered, non-overlapping |  |
 | PASS | ends within video | last end 311.68s |
-| PASS | <=2 lines, <=42 chars/line | 90 cues |
-| PASS | reading speed <= 21 cps | max 20.6, mean 15.5 |
-| PASS | min cue duration >= 0.7 s | min 0.95s |
+| PASS | <=2 lines, <=42 chars/line | 91 cues |
+| PASS | reading speed <= 21 cps | max 20.6, mean 15.6 |
+| PASS | min cue duration >= 0.7 s | min 0.88s |
 
 ## Sync & narration
 
@@ -53,7 +53,7 @@
 | PASS | duration 30-60 s | 34.0s |
 | PASS | A/V match (<=0.15s) |  |
 | PASS | loudness -18..-14 LUFS, no clipping | -16.0 LUFS, max -1.4 dB |
-| PASS | captions burned in (white text in caption band) | ['0.026', '0.005', '0.023'] |
+| PASS | captions burned in (white text in caption band) | ['0.026', '0.028', '0.026'] |
 
 ## Thumbnail
 

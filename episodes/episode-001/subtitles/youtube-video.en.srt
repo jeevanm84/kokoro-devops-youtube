@@ -241,13 +241,13 @@ But where do values actually live? In
 memory, as objects.
 
 53
-00:02:57,119 --> 00:02:59,376
-When you write x = [1, 2, 3],
+00:02:57,119 --> 00:02:59,462
+When you write x equals a list of one,
 
 54
-00:02:59,396 --> 00:03:03,380
-Python doesn't put that list inside a
-box called x.
+00:02:59,482 --> 00:03:03,380
+two, three, Python doesn't put that list
+inside a box called x.
 
 55
 00:03:03,750 --> 00:03:07,627
@@ -411,11 +411,15 @@ Each function call gets its own frame on
 the call stack.
 
 89
-00:05:06,277 --> 00:05:07,791
-If this helped, subscribe,
+00:05:06,277 --> 00:05:07,152
+If this helped,
 
 90
-00:05:07,811 --> 00:05:11,684
-and tell me in the comments which system
-you want visualized next.
+00:05:07,172 --> 00:05:09,776
+subscribe, and tell me in the comments
+which
+
+91
+00:05:09,796 --> 00:05:11,684
+system you want visualized next.
 

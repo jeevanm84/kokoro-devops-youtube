@@ -1,0 +1,8 @@
+{
+  "note": "Weekly workflow produces the first entry with ready=true that is not yet uploaded. Flip ready to true once the episode's script and voice are final.",
+  "publish_slot": "Monday 15:00 IST (videos are uploaded PRIVATE; you publish manually)",
+  "queue": [
+    {"episode": "episode-001", "ready": false, "why_not_ready": "waiting for the final voice choice"},
+    {"episode": "episode-002", "ready": false, "why_not_ready": "waiting for the final voice choice + scenario re-script"}
+  ]
+}

@@ -7,66 +7,62 @@ Is Python interpreted or compiled?
 Both. And here's the proof.
 
 3
-00:00:04,893 --> 00:00:05,248
-First,
+00:00:04,893 --> 00:00:06,590
+First, CPython compiles your
 
 4
-00:00:05,268 --> 00:00:06,560
-CPython compiles your
-
-5
-00:00:06,580 --> 00:00:08,185
+00:00:06,610 --> 00:00:08,185
 source code into bytecode.
 
-6
+5
 00:00:08,555 --> 00:00:09,794
 You can see it yourself
 
-7
+6
 00:00:09,814 --> 00:00:10,889
 with the dis module.
 
-8
+7
 00:00:11,258 --> 00:00:13,588
 Load a. Load b. Add. Return.
 
-9
+8
 00:00:13,958 --> 00:00:16,042
 Then the Python virtual machine
 
-10
+9
 00:00:16,062 --> 00:00:17,942
 executes those instructions,
 
-11
+10
 00:00:17,962 --> 00:00:19,706
 one by one, using a stack.
 
-12
+11
 00:00:20,076 --> 00:00:22,245
 Two goes on the stack. Three goes
 
-13
+12
 00:00:22,265 --> 00:00:24,103
 on the stack. Add pops both,
 
-14
+13
 00:00:24,123 --> 00:00:25,164
 and pushes five.
 
-15
+14
 00:00:25,534 --> 00:00:26,816
 Compiled to bytecode,
 
-16
+15
 00:00:26,836 --> 00:00:29,171
 then interpreted by a virtual machine.
 
-17
+16
 00:00:29,541 --> 00:00:31,768
 Follow for more visual explainers on
 
-18
+17
 00:00:31,788 --> 00:00:33,391
 how software really works.
 

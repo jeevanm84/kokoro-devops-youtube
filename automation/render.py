@@ -1,15 +1,19 @@
 """Scene-render stage. Each scene is cached by hash(scene file + brand kit + facts + that scene's timing); only changed scenes re-render.
 Usage: render.py <episode> [scene ids...] [--quality l|h] [--force]"""
-import hashlib, json, os, shutil, subprocess, sys, time
+import hashlib, json, os, re, shutil, subprocess, sys, time
 from config import *
 
-SCENE_FILES = {f"s{i:02d}": "scenes_a.py" if i <= 5 else "scenes_b.py" for i in range(1, 11)}
-SCENE_FILES["short"] = "short.py"
-CLASS = {**{f"s{i:02d}": f"S{i:02d}" for i in range(1, 11)}, "short": "ShortHook"}
+def discover(ep):
+    """Map scene id -> (file, class) by reading `class X(BrandScene): SID = "sNN"` in episodes/<ep>/animations/*.py."""
+    m = {}
+    for f in sorted((ep_dir(ep) / "animations").glob("*.py")):
+        for cls, sid in re.findall(r'class (\w+)\(BrandScene\):\s*\n\s*SID = "(\w+)"', f.read_text()):
+            m[sid] = (f.name, cls)
+    return m
 
 def key(ep, sid, timing, quality):
     h = hashlib.sha256()
-    for p in (ep_dir(ep) / "animations" / SCENE_FILES[sid], ROOT / "templates/brand.py", ROOT / "channel.json", ep_dir(ep) / "facts.py"):
+    for p in (ep_dir(ep) / "animations" / discover(ep)[sid][0], *sorted((ep_dir(ep) / "animations").glob("common*.py")), ROOT / "templates/brand.py", ROOT / "channel.json", ep_dir(ep) / "facts.py"):
         h.update(p.read_bytes())
     h.update(json.dumps(timing[sid], sort_keys=True).encode()); h.update(quality.encode())
     return h.hexdigest()[:16]
@@ -24,7 +28,7 @@ def render_scene(ep, sid, quality="h", force=False):
     env = {**os.environ, "TIMING_JSON": str(b / "timing.json")}
     media = b / "media"
     cmd = ["manim", "render", "-r", f"{res[0]},{res[1]}", "--fps", str(FPS if quality == "h" else 15), "--format", "mp4", "--disable_caching",
-           "--media_dir", str(media), "-o", sid, str(ep_dir(ep) / "animations" / SCENE_FILES[sid]), CLASS[sid]]
+           "--media_dir", str(media), "-o", sid, str(ep_dir(ep) / "animations" / discover(ep)[sid][0]), discover(ep)[sid][1]]
     t = time.time(); r = subprocess.run(cmd, env=env, capture_output=True, text=True)
     if r.returncode:
         print(f"[render] {sid}: FAILED\n{r.stdout[-1200:]}\n{r.stderr[-2500:]}"); return False
@@ -34,7 +38,10 @@ def render_scene(ep, sid, quality="h", force=False):
     print(f"[render] {sid}: ok in {time.time()-t:.0f}s -> {out.name}"); return True
 
 def run(ep, ids=None, quality="h", force=False):
-    ids = ids or list(CLASS)
+    sc = json.load(open(ep_dir(ep) / "script.json"))
+    ids = ids or [x["id"] for x in sc["scenes"]] + ["short"]
+    missing = [i for i in ids if i not in discover(ep)]
+    if missing: print(f"[render] no animation class for scenes {missing}"); return False
     ok = [render_scene(ep, s, quality, force) for s in ids]
     return all(ok)
 

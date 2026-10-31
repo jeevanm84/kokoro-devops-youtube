@@ -40,6 +40,8 @@ def service():
         try: creds.refresh(Request())
         except Exception as e:
             print(f"[auth] refresh failed ({e.__class__.__name__}); signing in again"); creds = None
+    if (not creds or not creds.valid) and os.environ.get("CI"):
+        sys.exit("[auth] No valid YouTube token in CI. Re-authorise on your Mac (upload_youtube.py --auth-only) and update the YT_TOKEN_JSON secret.")
     if not creds or not creds.valid:
         if not sec.exists(): sys.exit(f"[auth] {sec} not found. See docs/YOUTUBE-UPLOAD-SETUP.md")
         creds = InstalledAppFlow.from_client_secrets_file(str(sec), SCOPES).run_local_server(port=0)
@@ -97,9 +99,11 @@ def extras(yt, ep_dir, item, meta, vid, state):
             print(f"[{item}] captions NOT added (HTTP {e.resp.status}); upload the .srt in Studio > Subtitles.")
 
 def main():
-    ap = argparse.ArgumentParser(); ap.add_argument("episode"); ap.add_argument("--dry-run", action="store_true")
-    ap.add_argument("--only", choices=["main", "short"]); ap.add_argument("--force", action="store_true")
+    ap = argparse.ArgumentParser(); ap.add_argument("episode", nargs="?", default=""); ap.add_argument("--dry-run", action="store_true")
+    ap.add_argument("--only", choices=["main", "short"]); ap.add_argument("--force", action="store_true"); ap.add_argument("--auth-only", action="store_true", help="sign in, save token, upload nothing")
     a = ap.parse_args()
+    if a.auth_only:
+        service(); print(f"[auth] token saved to {CFG / 'token.json'}"); return
     a.episode = pathlib.Path(a.episode.rstrip("/")).name          # accept "episode-001" or "episodes/episode-001"
     ep_dir = ROOT / "episodes" / a.episode
     if not (ep_dir / "metadata.json").exists():

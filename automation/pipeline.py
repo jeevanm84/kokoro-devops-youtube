@@ -5,7 +5,7 @@
   python automation/pipeline.py status episode-001
 Stage state (input hash + result + timing) lives in episodes/<ep>/build/state.json; log in build/pipeline.log.
 A stage is skipped when its inputs are unchanged and it previously succeeded. Nothing is reported 'done' unless its output validates."""
-import hashlib, json, sys, time, traceback
+import hashlib, json, subprocess, sys, time, traceback
 from config import *
 import validate_technical, tts, subtitles, render, assemble, thumbnail, metadata, qa
 
@@ -16,18 +16,26 @@ def H(*paths):
             if f.is_file() and "__pycache__" not in f.parts: h.update(f.name.encode()); h.update(f.read_bytes())
     return h.hexdigest()[:16]
 
+def hook(ep, name, required=True):
+    """Run episodes/<ep>/<name> if present (each episode owns its checks, thumbnail and metadata)."""
+    f = ep_dir(ep) / name
+    if not f.exists():
+        if required: print(f"[hook] missing {f}"); return False
+        return True
+    return subprocess.run([sys.executable, str(f)], cwd=f.parent).returncode == 0
+
 def stages(ep):
     E = ep_dir(ep); A = ROOT / "automation"; T = ROOT / "templates"
     S, F, AN = E / "script.json", E / "facts.py", E / "animations"
     return [
-        ("validate",  lambda: validate_technical.run(ep),                      lambda: H(S, F, A / "validate_technical.py"), []),
+        ("validate",  lambda: hook(ep, "verify.py"),                            lambda: H(S, E / "verify.py", *E.glob("verify_*.py"), *([F] if F.exists() else [])), []),
         ("tts",       lambda: (tts.run(ep), True)[1],                          lambda: H(S, A / "tts.py"), [E / "build/timing.json"]),
         ("subtitles", lambda: (subtitles.run(ep), True)[1],                    lambda: H(S, A / "subtitles.py", E / "build/timing.json"), [E / "subtitles/youtube-video.en.srt"]),
-        ("render",    lambda: render.run(ep),                                  lambda: H(AN, T, F, ROOT / "channel.json", E / "build/timing.json"), [E / "build/scenes/s10.mp4", E / "build/scenes/short.mp4"]),
+        ("render",    lambda: render.run(ep),                                  lambda: H(AN, T, ROOT / "channel.json", E / "build/timing.json"), [E / "build/scenes/s10.mp4", E / "build/scenes/short.mp4"]),
         ("assemble",  lambda: (assemble.run_main(ep), True)[1],                lambda: H(E / "build/timing.json", E / "subtitles", E / "build/scenes", A / "assemble.py"), [E / "youtube-video.mp4"]),
         ("short",     lambda: (assemble.run_short(ep), True)[1],               lambda: H(E / "build/timing.json", E / "build/short.ass", E / "build/scenes/short.mp4", A / "assemble.py"), [E / "youtube-short.mp4"]),
-        ("thumbnail", lambda: (thumbnail.run(ep), True)[1],                    lambda: H(F, A / "thumbnail.py", ROOT / "channel.json"), [E / "thumbnail.png"]),
-        ("metadata",  lambda: (metadata.run(ep), True)[1],                     lambda: H(S, A / "metadata.py", E / "build/timing.json"), [E / "metadata.json"]),
+        ("thumbnail", lambda: hook(ep, "make_thumbnail.py"),                     lambda: H(E / "make_thumbnail.py", A / "thumbnail.py", ROOT / "channel.json"), [E / "thumbnail.png"]),
+        ("metadata",  lambda: hook(ep, "make_metadata.py", required=False) and (E / "metadata.json").exists(), lambda: H(S, E / "metadata.json", A / "metadata.py", E / "build/timing.json"), [E / "metadata.json"]),
         ("qa",        lambda: qa.run(ep),                                      lambda: H(E / "youtube-video.mp4", E / "youtube-short.mp4", E / "thumbnail.png", E / "metadata.json"), [E / "qa-report.md"]),
     ]
 
