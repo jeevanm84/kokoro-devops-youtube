@@ -1,6 +1,7 @@
 """Runs every Git behaviour shown in Episode 002 (undo toolkit) in a scratch repo, asserts the claims, and records REAL terminal output to facts.json."""
 import json, os, subprocess, tempfile
-env = {**os.environ, "GIT_AUTHOR_NAME": "t", "GIT_AUTHOR_EMAIL": "t@x", "GIT_COMMITTER_NAME": "t", "GIT_COMMITTER_EMAIL": "t@x", "GIT_CONFIG_GLOBAL": "/dev/null"}
+env = {**os.environ, "GIT_AUTHOR_NAME": "t", "GIT_AUTHOR_EMAIL": "t@x", "GIT_COMMITTER_NAME": "t", "GIT_COMMITTER_EMAIL": "t@x", "GIT_CONFIG_GLOBAL": "/dev/null",
+       "GIT_AUTHOR_DATE": "2026-01-01T00:00:00+0000", "GIT_COMMITTER_DATE": "2026-01-01T00:00:00+0000"}   # fixed dates => reproducible SHAs in recorded output
 facts, results = {}, []
 def sh(cmd, cwd, check=True):
     r = subprocess.run(cmd, shell=True, cwd=cwd, env=env, capture_output=True, text=True)
@@ -42,5 +43,5 @@ check("revert: original bad commit still in history", "C: oops" in facts["revert
 # hard reset does not touch untracked files
 d = fresh(); sh("echo keep > untracked.txt", d); sh("git reset --hard HEAD~1", d)
 check("hard reset does NOT delete untracked files", os.path.exists(f"{d}/untracked.txt"))
-json.dump(facts, open("facts.json", "w"), indent=2)
+import pathlib; json.dump(facts, open(pathlib.Path(__file__).resolve().parent / "facts.json", "w"), indent=2); open(pathlib.Path(__file__).resolve().parent / "facts.json", "a").write("\n")
 print(f"{sum(ok for _, ok in results)}/{len(results)} passed"); raise SystemExit(0 if all(ok for _, ok in results) else 1)

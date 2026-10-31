@@ -1,12 +1,12 @@
 {
   "soft_status": "M  app.txt",
-  "soft_log": "210465b B: second\nf4f9b8f A: first",
+  "soft_log": "e938990 B: second\n89a87d0 A: first",
   "mixed_status": " M app.txt",
   "hard_status": "",
   "hard_file": "A: first\nB: second",
-  "reflog": "210465b HEAD@{0}: reset: moving to HEAD~1\n9b20f4a HEAD@{1}: commit: C: oops\n210465b HEAD@{2}: commit: B: second",
+  "reflog": "e938990 HEAD@{0}: reset: moving to HEAD~1\n8a1b9c4 HEAD@{1}: commit: C: oops\ne938990 HEAD@{2}: commit: B: second",
   "restore_before": " M app.txt",
   "restore_staged_before": "M  app.txt",
   "restore_staged_after": " M app.txt",
-  "revert_log": "8c8774d Revert \"C: oops\"\n9b20f4a C: oops\n210465b B: second\nf4f9b8f A: first"
+  "revert_log": "81d712c Revert \"C: oops\"\n8a1b9c4 C: oops\ne938990 B: second\n89a87d0 A: first"
 }

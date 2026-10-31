@@ -14,12 +14,12 @@ Layout reuses templates/brand.py (same visual language as Episode 001: cards, am
 210465b B: second
 f4f9b8f A: first |
 | s06 reflog | Journal list slides; pointer jumps back to lost commit | `git reflog`:
-210465b HEAD@{0}: reset: moving to HEAD~1
-9b20f4a HEAD@{1}: commit: C: oops
-210465b HEAD@{2}: commit: B: second |
-| s07 replay | Split screen: left a 3-commit chain A-B-C, right a live-style terminal replaying the commands | soft `M  app.txt` / mixed ` M app.txt` / hard (empty) / reflog:\n210465b HEAD@{0}: reset: moving to HEAD~1
-9b20f4a HEAD@{1}: commit: C: oops
-210465b HEAD@{2}: commit: B: second |
+e938990 HEAD@{0}: reset: moving to HEAD~1
+8a1b9c4 HEAD@{1}: commit: C: oops
+e938990 HEAD@{2}: commit: B: second |
+| s07 replay | Split screen: left a 3-commit chain A-B-C, right a live-style terminal replaying the commands | soft `M  app.txt` / mixed ` M app.txt` / hard (empty) / reflog:\ne938990 HEAD@{0}: reset: moving to HEAD~1
+8a1b9c4 HEAD@{1}: commit: C: oops
+e938990 HEAD@{2}: commit: B: second |
 | s08 mistakes | Three red-flag cards: pushed+reset+force, uncommitted+hard, revert!=secret removal | - |
 | s09 interview | Seven-step framework chain: Impact -> Evidence -> Investigation -> Mitigation -> Communication -> Permanent fix -> Prevention (from docs/INTERVIEW_QUESTIONS.md) | - |
 | s10 lab | Repo card + "Lab 05 Undo and reflog recovery" + QR/URL; subscribe button | https://github.com/jeevanm84/git-command-master-map |

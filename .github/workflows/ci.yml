@@ -16,3 +16,7 @@ jobs:
         run: cd episodes/episode-002 && python verify_git_undo.py
       - name: Episode 001 technical claims against real CPython
         run: cd automation && python validate_technical.py episode-001
+      - name: Generated files must match what is committed (reproducibility guard)
+        run: |
+          git diff --exit-code
+          test -z "$(git ls-files --others --exclude-standard)"

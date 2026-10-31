@@ -1,6 +1,6 @@
 # Git interview scenarios (13)
 
-**Verification:** every command below was executed in a scratch repository with `git version 2.43.0` on 2026-10-30 and its outcome asserted (13/13 passed). Run `python verify_git.py` to re-check.
+**Verification:** every command below was executed in a scratch repository with `git version 2.43.0` and its outcome asserted (13/13 passed). Run `python verify_git.py` to re-check.
 
 Level: Fresher = 0-3 yrs, Experienced = 3+ yrs.
 
@@ -257,3 +257,4 @@ test "$(git rev-list --merges main | wc -l | tr -d ' ')" = 0
 commit one; commit "token=abc"; commit three
 git log -S"token=abc" --format=%s | grep -q 'token=abc' 
 ```
+
