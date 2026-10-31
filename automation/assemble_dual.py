@@ -14,12 +14,14 @@ ROOT = pathlib.Path(__file__).resolve().parents[1]
 def ep_dir(ep): return ROOT / "episodes" / ep
 
 def make_video(video_src, audio_src, out, subtitles=None):
+    # All -i inputs must come before -map/-c flags in ffmpeg
     cmd = ["ffmpeg", "-y", "-loglevel", "error",
-           "-i", str(video_src), "-i", str(audio_src),
-           "-map", "0:v", "-map", "1:a", "-c:v", "copy", "-c:a", "aac", "-b:a", "192k"]
+           "-i", str(video_src), "-i", str(audio_src)]
     if subtitles:
-        cmd += ["-i", str(subtitles), "-map", "2", "-c:s", "mov_text",
-                "-metadata:s:s:0", "language=eng"]
+        cmd += ["-i", str(subtitles)]
+    cmd += ["-map", "0:v", "-map", "1:a", "-c:v", "copy", "-c:a", "aac", "-b:a", "192k"]
+    if subtitles:
+        cmd += ["-map", "2", "-c:s", "mov_text", "-metadata:s:s:0", "language=eng"]
     cmd.append(str(out))
     subprocess.run(cmd, check=True)
 
