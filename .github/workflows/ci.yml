@@ -1,0 +1,18 @@
+# Fast checks that need no GPU, no models and no Docker. Runs on every push and PR.
+name: ci
+on: [push, pull_request]
+permissions: { contents: read }
+jobs:
+  verify:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: "3.12" }   # on-screen bytecode is for CPython 3.12
+      - name: Git interview scenarios (executes every command in scratch repos)
+        run: python courses/git-docker-interview/verify_git.py
+      - name: Episode 002 Git undo behaviours
+        run: cd episodes/episode-002 && python verify_git_undo.py
+      - name: Episode 001 technical claims against real CPython
+        run: cd automation && python validate_technical.py episode-001
