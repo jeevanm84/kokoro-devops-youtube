@@ -10,6 +10,8 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with: { python-version: "3.12" }   # on-screen bytecode is for CPython 3.12
+      - name: Show tool versions
+        run: git --version && python --version
       - name: Git interview scenarios (executes every command in scratch repos)
         run: python courses/git-docker-interview/verify_git.py
       - name: Episode 002 Git undo behaviours

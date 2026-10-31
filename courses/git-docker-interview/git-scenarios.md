@@ -1,6 +1,6 @@
 # Git interview scenarios (13)
 
-**Verification:** every command below was executed in a scratch repository with `git version 2.43.0` and its outcome asserted (13/13 passed). Run `python verify_git.py` to re-check.
+**Verification:** every command below was executed in a scratch repository with the Git installed on the machine running the check, and its outcome asserted (13/13 passed). Run `python verify_git.py` to re-check.
 
 Level: Fresher = 0-3 yrs, Experienced = 3+ yrs.
 
