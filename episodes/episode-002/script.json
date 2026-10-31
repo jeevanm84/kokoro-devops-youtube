@@ -1,0 +1,143 @@
+{
+  "episode": "episode-002",
+  "title": "Git Undo Explained: reset vs revert vs restore (with reflog recovery)",
+  "voice": "af_heart",
+  "speed": 0.9,
+  "scenes": [
+    {
+      "id": "s01",
+      "chapter": "The three-second panic",
+      "sentences": [
+        "You just ran git commit, and the second it finished, you realised it was wrong.",
+        "Maybe it's the wrong file. Maybe it's the wrong branch. Maybe it's already pushed.",
+        "Git has four tools for this: restore, reset, revert, and reflog.",
+        "They look similar, but they do very different things. Pick the wrong one, and you can lose work, or rewrite history your team depends on."
+      ]
+    },
+    {
+      "id": "s02",
+      "chapter": "Where your work lives",
+      "sentences": [
+        "Every Git mistake becomes easier once you ask one question: which place changed?",
+        "There are three. The working directory, where your files are. The index, also called the staging area. And the repository, where commits are stored.",
+        "HEAD points to the commit you are currently on.",
+        "Each undo command touches a different combination of these places."
+      ]
+    },
+    {
+      "id": "s03",
+      "chapter": "git restore",
+      "sentences": [
+        "Start with the smallest tool: git restore.",
+        "If you edited a file and want it back the way it was, git restore, then the file name, discards that change from the working directory.",
+        "If you already ran git add, git restore with the staged flag moves the file back out of the index, but keeps your edit.",
+        "Restore never touches your commits. It only fixes the files and the index."
+      ]
+    },
+    {
+      "id": "s04",
+      "chapter": "git reset: three modes",
+      "sentences": [
+        "Now say you made a commit and want to undo it. That's git reset.",
+        "Reset moves your branch back to an earlier commit. What happens to your changes depends on the mode.",
+        "With soft, the branch moves, but your changes stay staged, ready to commit again.",
+        "With mixed, the default, the branch moves and the index resets, so your changes stay in your files, but unstaged.",
+        "With hard, everything resets: the branch, the index, and your files. Your changes are gone from the working directory.",
+        "One more detail: hard reset does not delete untracked files."
+      ]
+    },
+    {
+      "id": "s05",
+      "chapter": "git revert: the safe one",
+      "sentences": [
+        "Reset is fine for commits that only exist on your machine.",
+        "But if the bad commit is already pushed to a shared branch, do not rewrite history.",
+        "Use git revert. It creates a brand new commit that applies the opposite change.",
+        "The original bad commit stays in history, so everyone's copy still lines up, and nobody has to repair their branch."
+      ]
+    },
+    {
+      "id": "s06",
+      "chapter": "git reflog: the safety net",
+      "sentences": [
+        "Now the scary one. You ran reset hard, and your commit disappeared from the log.",
+        "It isn't gone. Git keeps a local journal of where HEAD has been, called the reflog.",
+        "Run git reflog, find the line for your lost commit, and reset hard back to it.",
+        "The reflog is local, and old entries expire eventually, so recover quickly."
+      ]
+    },
+    {
+      "id": "s07",
+      "chapter": "Replay: the lab in 60 seconds",
+      "sentences": [
+        "Let's replay it in a throwaway repository. Three commits: A, B, and C, where C is the mistake.",
+        "First, git reset soft, HEAD tilde one. The log now ends at B, and git status shows the change staged, with the letter M in the first column.",
+        "Start over, and run git reset mixed instead. Same commit history, but now the M sits in the second column. The change is in the file, unstaged.",
+        "Start over, and run git reset hard. Git status is empty, and the file is back to how it looked at B.",
+        "Now the rescue. Git reflog shows the reset, and right below it, the commit called C, oops.",
+        "Reset hard to HEAD at one, in braces, and the file is back. That is the safety net, working."
+      ]
+    },
+    {
+      "id": "s08",
+      "chapter": "Mistakes that cost teams hours",
+      "sentences": [
+        "Three mistakes show up again and again.",
+        "One: resetting a commit that is already pushed, then force-pushing. Teammates' branches now disagree with yours. If you must force-push, use force with lease, and tell the team first.",
+        "Two: running reset hard with edits you never committed. The reflog tracks commits, so changes that were never committed are generally gone for good.",
+        "Three: believing revert removes a secret. It doesn't. The old commit stays in history, so rotate the credential first, then clean history if needed."
+      ]
+    },
+    {
+      "id": "s09",
+      "chapter": "Answering this in an interview",
+      "sentences": [
+        "Interviewers rarely ask for command names. They ask for scenarios.",
+        "For example: a faulty commit is on protected main, and it has already deployed.",
+        "A strong answer follows a framework: impact, evidence, investigation, immediate mitigation, communication, permanent fix, and prevention.",
+        "Here, the mitigation is git revert, because main is shared. The permanent fix is a tested change, and prevention is branch protection and required checks."
+      ]
+    },
+    {
+      "id": "s10",
+      "chapter": "Practice and recap",
+      "sentences": [
+        "Reading is not enough. Practise in a safe sandbox.",
+        "The Git Command Master Map repository has an undo and reflog lab, where every destructive command runs in a disposable repository.",
+        "The link is in the description.",
+        "Recap: restore fixes files. Reset moves your branch. Revert undoes safely on shared branches. Reflog saves you when you slip.",
+        "Subscribe, and tell me which Git scenario to visualize next."
+      ]
+    }
+  ],
+  "short": {
+    "id": "short",
+    "sentences": [
+      "Reset soft, mixed, or hard. What is the difference?",
+      "All three move your branch back.",
+      "Soft keeps your changes staged.",
+      "Mixed keeps them in your files, unstaged.",
+      "Hard throws them away.",
+      "If you slipped, git reflog can bring the commit back.",
+      "Follow for more Git scenarios."
+    ]
+  },
+  "display_rules": [
+    [
+      "git commit",
+      "git commit"
+    ],
+    [
+      "git restore",
+      "git restore"
+    ],
+    [
+      "reset hard",
+      "reset --hard"
+    ],
+    [
+      "git reset",
+      "git reset"
+    ]
+  ]
+}
