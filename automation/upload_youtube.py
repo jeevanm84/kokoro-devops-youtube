@@ -100,7 +100,12 @@ def main():
     ap = argparse.ArgumentParser(); ap.add_argument("episode"); ap.add_argument("--dry-run", action="store_true")
     ap.add_argument("--only", choices=["main", "short"]); ap.add_argument("--force", action="store_true")
     a = ap.parse_args()
-    ep_dir = ROOT / "episodes" / a.episode; meta = json.load(open(ep_dir / "metadata.json"))
+    a.episode = pathlib.Path(a.episode.rstrip("/")).name          # accept "episode-001" or "episodes/episode-001"
+    ep_dir = ROOT / "episodes" / a.episode
+    if not (ep_dir / "metadata.json").exists():
+        found = sorted(p.parent.name for p in (ROOT / "episodes").glob("*/metadata.json"))
+        sys.exit(f"No metadata.json for '{a.episode}'. Use an episode name, e.g.: python3 automation/upload_youtube.py {found[0] if found else 'episode-001'} --dry-run  (available: {', '.join(found)})")
+    meta = json.load(open(ep_dir / "metadata.json"))
     sp = ep_dir / "upload-state.json"; state = json.load(open(sp)) if sp.exists() else {}
     items = [a.only] if a.only else ["main", "short"]
     bad = {i: validate(ep_dir, i, meta[i]) for i in items if i in meta}
