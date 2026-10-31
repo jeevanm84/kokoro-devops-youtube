@@ -1,0 +1,20 @@
+# --- generated / large media: publish to YouTube or GitHub Releases, never to git history ---
+*.mp4
+*.wav
+*.mov
+*.mkv
+# --- build state & caches ---
+.cache/
+episodes/*/build/
+episodes/*/build_*.log
+# --- model weights (download with automation/setup_models.sh) ---
+assets/models
+# --- python ---
+__pycache__/
+*.pyc
+.venv/
+# --- secrets: never commit ---
+.env
+*.pem
+client_secret*.json
+token*.json
