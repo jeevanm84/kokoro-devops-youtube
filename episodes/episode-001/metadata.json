@@ -1,0 +1,127 @@
+{
+  "episode": "episode-001",
+  "privacyStatus": "private",
+  "approvalRequired": true,
+  "main": {
+    "title": "How Python Actually Executes Your Code — Explained Visually",
+    "description": "Is Python interpreted or compiled? Both. This video shows, step by step, what CPython does between pressing Enter and seeing output: tokenizing, parsing to an AST, compiling to bytecode, executing on a stack-based virtual machine, how names bind to objects (reference counting), and how call frames build the call stack.\n\nEverything shown was checked against a real CPython 3.12 interpreter. Details differ in other implementations (e.g. PyPy) and versions.\n\nCHAPTERS\n0:00 The question\n0:17 Compiled and interpreted\n0:48 The pipeline\n1:13 Tokens and the syntax tree\n1:45 Bytecode\n2:22 The stack machine\n2:52 Names and objects\n3:36 Frames and the call stack\n4:06 Why it matters\n4:47 Recap\n\nSOURCES\n- Python docs: dis — Disassembler for Python bytecode: https://docs.python.org/3/library/dis.html\n- Python docs: Data model (objects, values, types): https://docs.python.org/3/reference/datamodel.html\n- Python docs: gc — Garbage Collector interface: https://docs.python.org/3/library/gc.html\n- PEP 3147 — PYC repository directories (__pycache__): https://peps.python.org/pep-3147/\n- PEP 617 — New PEG parser for CPython: https://peps.python.org/pep-0617/\n- What's New in Python 3.11 — Faster CPython: https://docs.python.org/3/whatsnew/3.11.html\n- PEP 659 — Specializing Adaptive Interpreter: https://peps.python.org/pep-0659/\n\nNarration is an AI-generated voice. Animations are original, built programmatically with Manim.\n\n#Python #Programming #CPython",
+    "tags": [
+      "python",
+      "how python works",
+      "cpython",
+      "python bytecode",
+      "python interpreter",
+      "python virtual machine",
+      "dis module",
+      "python internals",
+      "python reference counting",
+      "python call stack",
+      "python for beginners",
+      "python explained",
+      "abstract syntax tree",
+      "interpreted vs compiled",
+      "software engineering"
+    ],
+    "categoryId": "27",
+    "defaultLanguage": "en",
+    "defaultAudioLanguage": "en",
+    "selfDeclaredMadeForKids": false,
+    "files": {
+      "video": "youtube-video.mp4",
+      "thumbnail": "thumbnail.png",
+      "captions": "subtitles/youtube-video.en.srt"
+    },
+    "chapters": [
+      {
+        "start": 0.0,
+        "title": "The question"
+      },
+      {
+        "start": 17.5,
+        "title": "Compiled and interpreted"
+      },
+      {
+        "start": 48.63,
+        "title": "The pipeline"
+      },
+      {
+        "start": 73.17,
+        "title": "Tokens and the syntax tree"
+      },
+      {
+        "start": 105.97,
+        "title": "Bytecode"
+      },
+      {
+        "start": 142.4,
+        "title": "The stack machine"
+      },
+      {
+        "start": 172.43,
+        "title": "Names and objects"
+      },
+      {
+        "start": 216.83,
+        "title": "Frames and the call stack"
+      },
+      {
+        "start": 246.57,
+        "title": "Why it matters"
+      },
+      {
+        "start": 287.03,
+        "title": "Recap"
+      }
+    ]
+  },
+  "short": {
+    "title": "Python: interpreted or compiled? Both. #Shorts",
+    "description": "Is Python interpreted or compiled? Both: CPython compiles source to bytecode, then a virtual machine executes it on a stack. Full visual walkthrough on the channel.\n\n#Shorts #Python #Programming",
+    "tags": [
+      "python",
+      "shorts",
+      "bytecode",
+      "programming"
+    ],
+    "categoryId": "27",
+    "defaultLanguage": "en",
+    "selfDeclaredMadeForKids": false,
+    "files": {
+      "video": "youtube-short.mp4",
+      "captions": "subtitles/youtube-short.en.srt"
+    }
+  },
+  "sources": [
+    {
+      "title": "Python docs: dis — Disassembler for Python bytecode",
+      "url": "https://docs.python.org/3/library/dis.html"
+    },
+    {
+      "title": "Python docs: Data model (objects, values, types)",
+      "url": "https://docs.python.org/3/reference/datamodel.html"
+    },
+    {
+      "title": "Python docs: gc — Garbage Collector interface",
+      "url": "https://docs.python.org/3/library/gc.html"
+    },
+    {
+      "title": "PEP 3147 — PYC repository directories (__pycache__)",
+      "url": "https://peps.python.org/pep-3147/"
+    },
+    {
+      "title": "PEP 617 — New PEG parser for CPython",
+      "url": "https://peps.python.org/pep-0617/"
+    },
+    {
+      "title": "What's New in Python 3.11 — Faster CPython",
+      "url": "https://docs.python.org/3/whatsnew/3.11.html"
+    },
+    {
+      "title": "PEP 659 — Specializing Adaptive Interpreter",
+      "url": "https://peps.python.org/pep-0659/"
+    }
+  ],
+  "disclosures": [
+    "AI-generated narration voice (Kokoro TTS, Apache-2.0 model); review YouTube's current altered/synthetic-content disclosure rules before publishing."
+  ]
+}

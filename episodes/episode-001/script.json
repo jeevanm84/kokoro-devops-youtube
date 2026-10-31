@@ -1,0 +1,203 @@
+{
+  "episode": "episode-001",
+  "title": "How Python Actually Executes Your Code — Explained Visually",
+  "voice": "af_heart",
+  "speed": 0.9,
+  "scenes": [
+    {
+      "id": "s01",
+      "chapter": "The question",
+      "sentences": [
+        "You type python, app dot py, press Enter, and a few milliseconds later, your program is running.",
+        "But what actually happened in between?",
+        "Is Python interpreted, or is it compiled?",
+        "The honest answer is: both. And by the end of this video, you'll see exactly how."
+      ]
+    },
+    {
+      "id": "s02",
+      "chapter": "Compiled and interpreted",
+      "sentences": [
+        "Most people describe Python as an interpreted language, as if something reads your text file line by line and simply obeys it.",
+        "That's not what happens.",
+        "In the standard implementation, called CPython, your source code is first compiled into a simpler instruction set called bytecode.",
+        "Then a program called the Python virtual machine executes that bytecode, one instruction at a time.",
+        "So CPython compiles, and then it interprets. Two phases, not one."
+      ]
+    },
+    {
+      "id": "s03",
+      "chapter": "The pipeline",
+      "sentences": [
+        "Here's the full journey of your code.",
+        "First, the tokenizer breaks your source text into tokens.",
+        "The parser arranges those tokens into a tree, called the abstract syntax tree.",
+        "The compiler walks that tree and emits bytecode, stored inside a code object.",
+        "Finally, the virtual machine runs the bytecode, and your program produces output.",
+        "Let's zoom into each stage."
+      ]
+    },
+    {
+      "id": "s04",
+      "chapter": "Tokens and the syntax tree",
+      "sentences": [
+        "Take a single line: total equals price times two.",
+        "The tokenizer splits it into five tokens: a name, an equals sign, another name, a star, and a number.",
+        "The parser then applies the grammar rules, and builds a tree.",
+        "At the top is an assignment. On the right side, a multiplication, with the name price on the left and the constant two on the right.",
+        "Notice that the tree captures meaning and structure, not just text. And syntax errors are caught right here, before any of your code runs."
+      ]
+    },
+    {
+      "id": "s05",
+      "chapter": "Bytecode",
+      "sentences": [
+        "Now the compiler turns that tree into bytecode.",
+        "Here's a tiny function that adds two numbers.",
+        "Using the built-in dis module, we can see its bytecode in Python three point twelve.",
+        "Load the variable a. Load the variable b. Add them with a binary operation. Return the result.",
+        "These instructions live in a code object, along with the constants and variable names the function needs.",
+        "And for imported modules, CPython caches this bytecode in dot pyc files, inside the pycache folder, so the next import can skip compilation."
+      ]
+    },
+    {
+      "id": "s06",
+      "chapter": "The stack machine",
+      "sentences": [
+        "Now the virtual machine takes over. It's a stack machine: instructions push and pop values on a stack.",
+        "Let's call add with two and three.",
+        "Load fast a pushes two onto the stack. Load fast b pushes three.",
+        "Binary op plus pops both values, adds them, and pushes the result: five.",
+        "Return value pops the five, and hands it back to the caller.",
+        "That loop, fetch an instruction, execute it, move to the next, is the heart of the interpreter."
+      ]
+    },
+    {
+      "id": "s07",
+      "chapter": "Names and objects",
+      "sentences": [
+        "But where do values actually live? In memory, as objects.",
+        "When you write x equals a list of one, two, three, Python doesn't put that list inside a box called x.",
+        "It creates a list object in memory, and binds the name x to it.",
+        "Now y equals x. No copy is made. Both names point at the same object.",
+        "The object keeps a reference count. Right now, it's two.",
+        "Change it through y, and x sees the change, because it's the same object. Reassign y to something else, and the count drops back to one.",
+        "When the count reaches zero, CPython frees the object immediately.",
+        "Objects that reference each other in cycles are cleaned up by a separate garbage collector."
+      ]
+    },
+    {
+      "id": "s08",
+      "chapter": "Frames and the call stack",
+      "sentences": [
+        "Functions add one more idea: frames.",
+        "Every time you call a function, the interpreter creates a frame, holding that call's local variables and its place in the bytecode.",
+        "Calling a function from inside another function stacks a new frame on top.",
+        "When a function returns, its frame is removed, and execution continues in the caller.",
+        "This is exactly what you see in a traceback, and why runaway recursion ends with a RecursionError."
+      ]
+    },
+    {
+      "id": "s09",
+      "chapter": "Why it matters",
+      "sentences": [
+        "So why does any of this matter in real projects?",
+        "When code is slower than you expect, the dis module shows what the interpreter really executes.",
+        "Understanding references explains the classic bug where two variables unexpectedly change together, like when you share a list.",
+        "And the pycache folder explains why imports are faster the second time.",
+        "One last note: everything here describes CPython. Other implementations, like PyPy, add just-in-time compilation, and recent CPython versions optimize hot bytecode on the fly. The model stays the same. The details evolve."
+      ]
+    },
+    {
+      "id": "s10",
+      "chapter": "Recap",
+      "sentences": [
+        "Let's recap.",
+        "Python source is tokenized, parsed into a tree, compiled to bytecode, and executed by a virtual machine.",
+        "Variables are names bound to objects, and objects live as long as something references them.",
+        "Each function call gets its own frame on the call stack.",
+        "If this helped, subscribe, and tell me in the comments which system you want visualized next."
+      ]
+    }
+  ],
+  "short": {
+    "id": "short",
+    "sentences": [
+      "Is Python interpreted or compiled?",
+      "Both. And here's the proof.",
+      "First, CPython compiles your source code into bytecode.",
+      "You can see it yourself with the dis module.",
+      "Load a. Load b. Add. Return.",
+      "Then the Python virtual machine executes those instructions, one by one, using a stack.",
+      "Two goes on the stack. Three goes on the stack. Add pops both, and pushes five.",
+      "Compiled to bytecode, then interpreted by a virtual machine.",
+      "Follow for more visual explainers on how software really works."
+    ]
+  },
+  "display_rules": [
+    [
+      "app dot py",
+      "app.py"
+    ],
+    [
+      "dot pyc",
+      "`.pyc`"
+    ],
+    [
+      "pycache",
+      "`__pycache__`"
+    ],
+    [
+      "Python three point twelve",
+      "Python 3.12"
+    ],
+    [
+      "total equals price times two",
+      "total = price * 2"
+    ],
+    [
+      "x equals a list of one, two, three",
+      "x = [1, 2, 3]"
+    ],
+    [
+      "Now y equals x",
+      "Now y = x"
+    ],
+    [
+      "Load fast a",
+      "LOAD_FAST a"
+    ],
+    [
+      "Load fast b",
+      "LOAD_FAST b"
+    ],
+    [
+      "Binary op plus",
+      "BINARY_OP +"
+    ],
+    [
+      "Return value",
+      "RETURN_VALUE"
+    ],
+    [
+      "Load the variable a",
+      "LOAD the variable a"
+    ],
+    [
+      "Load the variable b",
+      "Load the variable b"
+    ],
+    [
+      "Let's call add with two and three",
+      "Let's call add(2, 3)"
+    ],
+    [
+      "\\bdis module",
+      "dis module"
+    ],
+    [
+      "python, app",
+      "python app"
+    ]
+  ]
+}
