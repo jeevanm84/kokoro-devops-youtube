@@ -1,0 +1,51 @@
+{
+  "episode": "episode-002",
+  "privacyStatus": "private",
+  "approvalRequired": true,
+  "main": {
+    "title": "Git Undo Explained: reset vs revert vs restore (with reflog recovery)",
+    "description": "Committed the wrong thing? Learn exactly what git restore, reset (soft/mixed/hard), revert and reflog do, which one is safe on shared branches, and how to answer this in a DevOps interview. Every command shown was run and checked in a real repository.\n\nHANDS-ON LAB (free, safe sandbox - never touches your real repos):\nhttps://github.com/jeevanm84/git-command-master-map   (see labs: \"05 Undo and reflog recovery\")\nInteractive Git command map: https://jeevanm84.github.io/git-command-master-map/\nInterview questions used in this video: https://github.com/jeevanm84/git-command-master-map/blob/main/docs/INTERVIEW_QUESTIONS.md\nTroubleshooting handbook: https://github.com/jeevanm84/git-command-master-map/blob/main/docs/TROUBLESHOOTING.md\nAll repos: https://github.com/jeevanm84\n\nCHAPTERS:\n0:00 The three-second panic\n0:23 Where your work lives\n0:52 git restore\n1:17 git reset: three modes\n1:53 git revert: the safe one\n2:16 git reflog: the safety net\n2:39 Replay: the lab in 60 seconds\n3:27 Mistakes that cost teams hours\n4:02 Answering this in an interview\n4:40 Practice and recap\nNarration is AI-generated. Subscribe to Kokoro DevOps (@KokoroDevOps) for GenAI · FDE · Cloud Ops explainers.\n\n#Git #DevOps #InterviewPrep",
+    "tags": [
+      "git",
+      "git reset",
+      "git revert",
+      "git restore",
+      "git reflog",
+      "git undo",
+      "git tutorial",
+      "undo git commit",
+      "git interview questions",
+      "devops interview questions",
+      "devops",
+      "version control",
+      "kokoro devops"
+    ],
+    "categoryId": "27",
+    "defaultLanguage": "en",
+    "defaultAudioLanguage": "en",
+    "selfDeclaredMadeForKids": false,
+    "files": {
+      "video": "youtube-video.mp4",
+      "thumbnail": "thumbnail.png",
+      "captions": "subtitles/youtube-video.en.srt"
+    }
+  },
+  "short": {
+    "title": "git reset: soft vs mixed vs hard in 30 seconds #Shorts",
+    "description": "All three move your branch back. Soft keeps changes staged, mixed keeps them unstaged, hard throws them away. Slipped? git reflog brings the commit back.\n\nPractise it safely: https://github.com/jeevanm84/git-command-master-map\n\n#Shorts #Git #DevOps",
+    "tags": [
+      "git",
+      "git reset",
+      "shorts",
+      "devops"
+    ],
+    "categoryId": "27",
+    "defaultLanguage": "en",
+    "defaultAudioLanguage": "en",
+    "selfDeclaredMadeForKids": false,
+    "files": {
+      "video": "youtube-short.mp4",
+      "captions": "subtitles/youtube-short.en.srt"
+    }
+  }
+}
