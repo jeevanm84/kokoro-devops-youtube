@@ -58,7 +58,7 @@ test "$(git cat-file -p HEAD | grep -c '^parent')" = 2'''),
   a=["`git rebase -i HEAD~3` then mark later commits `squash`/`fixup`.", "Only rewrite commits that are not yet shared (or agree with the team).", "Alternative: `git reset --soft HEAD~3 && git commit`."],
   follow="Squash vs fixup? What changes about commit SHAs after a rebase?",
   script='''commit one; commit two; commit three; commit four
-GIT_SEQUENCE_EDITOR="sed -i '2,3s/^pick/squash/'" GIT_EDITOR=true git rebase -i HEAD~3 >/dev/null 2>&1
+GIT_SEQUENCE_EDITOR="sed -i.bak '2,3s/^pick/squash/'" GIT_EDITOR=true git rebase -i HEAD~3 >/dev/null 2>&1
 test "$(n)" = 2'''),
  dict(id="G7", level="Experienced", title="Ship one fix to a release branch (cherry-pick)",
   q="A hotfix is on main but only that fix must go to release/1.0.",
@@ -90,7 +90,7 @@ git checkout -q -b hotfix; commit fix; git checkout -q main; git stash pop -q; g
   follow="Why isn't deleting the file in a new commit enough? (It stays in history.)",
   script='''commit one; echo "AWS_KEY=AKIAFAKE" > .env; git add .env; git commit -qm "add env"; commit two
 FILTER_BRANCH_SQUELCH_WARNING=1 git filter-branch -f --index-filter 'git rm --cached --ignore-unmatch -q .env' -- --all >/dev/null 2>&1
-git for-each-ref --format='%(refname)' refs/original | xargs -r -n1 git update-ref -d
+git for-each-ref --format='%(refname)' refs/original | while read -r r; do git update-ref -d "$r"; done
 git reflog expire --expire=now --all; git gc -q --prune=now
 if git log --all -p | grep -q AKIAFAKE; then exit 1; fi'''),
  dict(id="G11", level="Experienced", title="Force-push safely",
