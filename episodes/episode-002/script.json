@@ -225,7 +225,7 @@
   "tts_te": {
     "provider": "sarvam",
     "model": "bulbul:v3",
-    "speaker": "Manan",
+    "speaker": "kabir",
     "language": "te-IN",
     "pace": 0.95
   }
