@@ -21,7 +21,8 @@
         "Every Git mistake becomes easier once you ask one question: which place changed?",
         "There are three. The working directory, where your files are. The index, also called the staging area. And the repository, where commits are stored.",
         "HEAD points to the commit you are currently on.",
-        "Each undo command touches a different combination of these places."
+        "Each undo command touches a different combination of these places.",
+        "Keep that picture in mind, because every command that follows moves something between these three places."
       ]
     },
     {
@@ -95,7 +96,8 @@
         "Interviewers rarely ask for command names. They ask for scenarios.",
         "For example: a faulty commit is on protected main, and it has already deployed.",
         "A strong answer follows a framework: impact, evidence, investigation, immediate mitigation, communication, permanent fix, and prevention.",
-        "Here, the mitigation is git revert, because main is shared. The permanent fix is a tested change, and prevention is branch protection and required checks."
+        "Here, the mitigation is git revert, because main is shared. The permanent fix is a tested change, and prevention is branch protection and required checks.",
+        "Notice the order: stabilise production first, then investigate, and only then fix the cause."
       ]
     },
     {
@@ -106,7 +108,8 @@
         "The Git Command Master Map repository has an undo and reflog lab, where every destructive command runs in a disposable repository.",
         "The link is in the description.",
         "Recap: restore fixes files. Reset moves your branch. Revert undoes safely on shared branches. Reflog saves you when you slip.",
-        "Subscribe, and tell me which Git scenario to visualize next."
+        "Subscribe, and tell me which Git scenario to visualize next.",
+        "The labs are safe to break, so run each command twice: once to predict the result, and once to confirm it."
       ]
     }
   ],
@@ -114,12 +117,14 @@
     "id": "short",
     "sentences": [
       "Reset soft, mixed, or hard. What is the difference?",
-      "All three move your branch back.",
-      "Soft keeps your changes staged.",
-      "Mixed keeps them in your files, unstaged.",
-      "Hard throws them away.",
-      "If you slipped, git reflog can bring the commit back.",
-      "Follow for more Git scenarios."
+      "Say you committed the wrong thing, and you want to undo it.",
+      "All three modes move your branch back one commit.",
+      "Soft keeps your changes staged, ready to commit again.",
+      "Mixed keeps them in your files, but unstaged.",
+      "Hard throws them away, and resets your files to match.",
+      "Slipped? Git reflog keeps a journal of where your branch has been.",
+      "Find the lost commit there, and reset hard back to it.",
+      "Follow for more Git scenarios, explained visually."
     ]
   },
   "display_rules": [

@@ -13,6 +13,12 @@ def display(text, rules):
 def chunk(text, MAX_CUE_CHARS=MAX_CUE_CHARS):
     """Split a sentence into cue-sized phrases, preferring punctuation boundaries."""
     parts = [p.strip() for p in re.split(r"(?<=[,;:])\s+", text) if p.strip()]
+    i = 0                                               # fold tiny fragments ("Two:", "Recap:") into the next phrase
+    while i < len(parts) - 1:
+        if len(parts[i]) < 14:
+            parts[i + 1] = parts[i] + " " + parts[i + 1]; del parts[i]
+        else:
+            i += 1
     cues, cur = [], ""
     for p in parts:
         if cur and len(cur) + 1 + len(p) > MAX_CUE_CHARS:
@@ -32,6 +38,8 @@ def chunk(text, MAX_CUE_CHARS=MAX_CUE_CHARS):
             out.append(piece)
         else:
             out.append(c)
+    if len(out) > 1 and len(out[-1]) < 12 and len(out[-2]) + 1 + len(out[-1]) <= int(MAX_CUE_CHARS * 1.25):   # no orphan last word
+        out[-2] = out[-2] + " " + out[-1]; out.pop()
     return out
 
 def wrap(c): return "\n".join(textwrap.wrap(c, MAX_LINE, break_long_words=False)) if len(c) > MAX_LINE else c

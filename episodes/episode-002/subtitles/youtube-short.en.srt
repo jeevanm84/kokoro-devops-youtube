@@ -1,0 +1,72 @@
+1
+00:00:00,500 --> 00:00:01,671
+Reset soft, mixed,
+
+2
+00:00:01,691 --> 00:00:03,787
+or hard. What is the difference?
+
+3
+00:00:04,157 --> 00:00:05,918
+Say you committed the wrong thing,
+
+4
+00:00:05,938 --> 00:00:07,175
+and you want to undo it.
+
+5
+00:00:07,545 --> 00:00:09,005
+All three modes move your
+
+6
+00:00:09,025 --> 00:00:10,366
+branch back one commit.
+
+7
+00:00:10,736 --> 00:00:12,599
+Soft keeps your changes staged,
+
+8
+00:00:12,619 --> 00:00:13,935
+ready to commit again.
+
+9
+00:00:14,305 --> 00:00:16,155
+Mixed keeps them in your files,
+
+10
+00:00:16,175 --> 00:00:16,939
+but unstaged.
+
+11
+00:00:17,309 --> 00:00:18,648
+Hard throws them away,
+
+12
+00:00:18,668 --> 00:00:20,563
+and resets your files to match.
+
+13
+00:00:20,933 --> 00:00:22,871
+Slipped? Git reflog keeps a journal
+
+14
+00:00:22,891 --> 00:00:24,550
+of where your branch has been.
+
+15
+00:00:24,920 --> 00:00:26,438
+Find the lost commit there,
+
+16
+00:00:26,458 --> 00:00:28,033
+and reset --hard back to it.
+
+17
+00:00:28,403 --> 00:00:30,341
+Follow for more Git scenarios,
+
+18
+00:00:30,361 --> 00:00:31,581
+explained visually.
+

@@ -27,4 +27,4 @@ Python **3.12** required.
 - Everything stays **Private** on YouTube until a human approves.
 
 ## Status
-Episode 001 rendered and QA-passed (automated checks). Episode 002 scripted, not rendered. Weekly automation, S3 storage and YouTube upload are **not built**; `.github/workflows/produce-episode.yml` has never run in CI.
+Episodes 001 and 002 rendered and QA-passed (automated checks; human review items remain MANUAL). Weekly automation, S3 storage and YouTube upload are **not built**; `.github/workflows/produce-episode.yml` has never run in CI.

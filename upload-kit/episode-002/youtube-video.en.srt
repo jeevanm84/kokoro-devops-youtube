@@ -1,0 +1,437 @@
+1
+00:00:00,500 --> 00:00:03,373
+You just ran git commit, and the second
+it finished,
+
+2
+00:00:03,393 --> 00:00:04,820
+you realised it was wrong.
+
+3
+00:00:05,190 --> 00:00:07,773
+Maybe it's the wrong file. Maybe it's
+the wrong
+
+4
+00:00:07,793 --> 00:00:09,656
+branch. Maybe it's already pushed.
+
+5
+00:00:10,026 --> 00:00:14,474
+Git has four tools for this: restore,
+reset, revert, and reflog.
+
+6
+00:00:14,844 --> 00:00:19,165
+They look similar, but they do very
+different things. Pick the wrong one,
+
+7
+00:00:19,185 --> 00:00:22,912
+and you can lose work, or rewrite
+history your team depends on.
+
+8
+00:00:24,033 --> 00:00:27,605
+Every Git mistake becomes easier once
+you ask one question:
+
+9
+00:00:27,625 --> 00:00:28,822
+which place changed?
+
+10
+00:00:29,192 --> 00:00:33,629
+There are three. The working directory,
+where your files are. The index,
+
+11
+00:00:33,649 --> 00:00:36,663
+also called the staging area. And the
+repository,
+
+12
+00:00:36,683 --> 00:00:38,210
+where commits are stored.
+
+13
+00:00:38,580 --> 00:00:40,993
+HEAD points to the commit you are
+currently on.
+
+14
+00:00:41,363 --> 00:00:45,541
+Each undo command touches a different
+combination of these places.
+
+15
+00:00:45,911 --> 00:00:47,467
+Keep that picture in mind,
+
+16
+00:00:47,487 --> 00:00:49,891
+because every command that follows moves
+
+17
+00:00:49,911 --> 00:00:52,133
+something between these three places.
+
+18
+00:00:53,267 --> 00:00:55,861
+Start with the smallest tool: git
+restore.
+
+19
+00:00:56,231 --> 00:00:59,492
+If you edited a file and want it back
+the way it was,
+
+20
+00:00:59,512 --> 00:01:01,473
+git restore, then the file name,
+
+21
+00:01:01,493 --> 00:01:04,445
+discards that change from the working
+directory.
+
+22
+00:01:04,815 --> 00:01:06,456
+If you already ran git add,
+
+23
+00:01:06,476 --> 00:01:10,762
+git restore with the staged flag moves
+the file back out of the index,
+
+24
+00:01:10,782 --> 00:01:11,993
+but keeps your edit.
+
+25
+00:01:12,363 --> 00:01:17,131
+Restore never touches your commits. It
+only fixes the files and the index.
+
+26
+00:01:18,267 --> 00:01:21,968
+Now say you made a commit and want to
+undo it. That's git reset.
+
+27
+00:01:22,338 --> 00:01:25,681
+Reset moves your branch back to an
+earlier commit. What
+
+28
+00:01:25,701 --> 00:01:28,372
+happens to your changes depends on the
+mode.
+
+29
+00:01:28,742 --> 00:01:32,215
+With soft, the branch moves, but your
+changes stay staged,
+
+30
+00:01:32,235 --> 00:01:33,540
+ready to commit again.
+
+31
+00:01:33,910 --> 00:01:37,904
+With mixed, the default, the branch
+moves and the index resets,
+
+32
+00:01:37,924 --> 00:01:41,026
+so your changes stay in your files, but
+unstaged.
+
+33
+00:01:41,396 --> 00:01:44,713
+With hard, everything resets: the
+branch, the index,
+
+34
+00:01:44,733 --> 00:01:48,885
+and your files. Your changes are gone
+from the working directory.
+
+35
+00:01:49,255 --> 00:01:53,356
+One more detail: hard reset does not
+delete untracked files.
+
+36
+00:01:54,500 --> 00:01:58,197
+Reset is fine for commits that only
+exist on your machine.
+
+37
+00:01:58,567 --> 00:02:01,781
+But if the bad commit is already pushed
+to a shared branch,
+
+38
+00:02:01,801 --> 00:02:03,042
+do not rewrite history.
+
+39
+00:02:03,412 --> 00:02:06,343
+Use git revert. It creates a brand new
+commit
+
+40
+00:02:06,363 --> 00:02:08,507
+that applies the opposite change.
+
+41
+00:02:08,877 --> 00:02:11,487
+The original bad commit stays in
+history,
+
+42
+00:02:11,507 --> 00:02:16,171
+so everyone's copy still lines up, and
+nobody has to repair their branch.
+
+43
+00:02:17,300 --> 00:02:19,705
+Now the scary one. You ran reset --hard,
+
+44
+00:02:19,725 --> 00:02:22,190
+and your commit disappeared from the
+log.
+
+45
+00:02:22,560 --> 00:02:26,418
+It isn't gone. Git keeps a local journal
+of where HEAD has been,
+
+46
+00:02:26,438 --> 00:02:27,509
+called the reflog.
+
+47
+00:02:27,879 --> 00:02:31,118
+Run git reflog, find the line for your
+lost commit,
+
+48
+00:02:31,138 --> 00:02:32,907
+and reset --hard back to it.
+
+49
+00:02:33,277 --> 00:02:37,118
+The reflog is local, and old entries
+expire eventually,
+
+50
+00:02:37,138 --> 00:02:38,452
+so recover quickly.
+
+51
+00:02:39,600 --> 00:02:43,832
+Let's replay it in a throwaway
+repository. Three commits:
+
+52
+00:02:43,852 --> 00:02:46,518
+A, B, and C, where C is the mistake.
+
+53
+00:02:46,888 --> 00:02:51,165
+First, git reset soft, HEAD tilde one.
+The log now ends at B,
+
+54
+00:02:51,185 --> 00:02:53,912
+and git status shows the change staged,
+
+55
+00:02:53,932 --> 00:02:56,589
+with the letter M in the first column.
+
+56
+00:02:56,959 --> 00:03:01,723
+Start over, and run git reset mixed
+instead. Same commit history,
+
+57
+00:03:01,743 --> 00:03:07,391
+but now the M sits in the second column.
+The change is in the file, unstaged.
+
+58
+00:03:07,761 --> 00:03:11,600
+Start over, and run git reset --hard.
+Git status is empty,
+
+59
+00:03:11,620 --> 00:03:14,462
+and the file is back to how it looked at
+B.
+
+60
+00:03:14,832 --> 00:03:19,067
+Now the rescue. Git reflog shows the
+reset, and right below it,
+
+61
+00:03:19,087 --> 00:03:20,823
+the commit called C, oops.
+
+62
+00:03:21,193 --> 00:03:22,965
+reset --hard to HEAD at one,
+
+63
+00:03:22,985 --> 00:03:27,124
+in braces, and the file is back. That is
+the safety net, working.
+
+64
+00:03:28,267 --> 00:03:30,241
+Three mistakes show up again and again.
+
+65
+00:03:30,611 --> 00:03:33,592
+One: resetting a commit that is already
+pushed,
+
+66
+00:03:33,612 --> 00:03:36,339
+then force-pushing. Teammates' branches
+now
+
+67
+00:03:36,359 --> 00:03:39,149
+disagree with yours. If you must force-
+push,
+
+68
+00:03:39,169 --> 00:03:42,087
+use force with lease, and tell the team
+first.
+
+69
+00:03:42,457 --> 00:03:45,287
+Two: running reset --hard with edits you
+never
+
+70
+00:03:45,307 --> 00:03:47,580
+committed. The reflog tracks commits,
+
+71
+00:03:47,600 --> 00:03:51,609
+so changes that were never committed are
+generally gone for good.
+
+72
+00:03:51,979 --> 00:03:55,006
+Three: believing revert removes a
+secret. It
+
+73
+00:03:55,026 --> 00:03:57,846
+doesn't. The old commit stays in
+history,
+
+74
+00:03:57,866 --> 00:04:02,072
+so rotate the credential first, then
+clean history if needed.
+
+75
+00:04:03,200 --> 00:04:07,346
+Interviewers rarely ask for command
+names. They ask for scenarios.
+
+76
+00:04:07,716 --> 00:04:10,935
+For example: a faulty commit is on
+protected main,
+
+77
+00:04:10,955 --> 00:04:12,749
+and it has already deployed.
+
+78
+00:04:13,119 --> 00:04:18,009
+A strong answer follows a framework:
+impact, evidence, investigation,
+
+79
+00:04:18,029 --> 00:04:22,776
+immediate mitigation, communication,
+permanent fix, and prevention.
+
+80
+00:04:23,146 --> 00:04:25,538
+Here, the mitigation is git revert,
+
+81
+00:04:25,558 --> 00:04:29,742
+because main is shared. The permanent
+fix is a tested change,
+
+82
+00:04:29,762 --> 00:04:33,601
+and prevention is branch protection and
+required checks.
+
+83
+00:04:33,971 --> 00:04:38,211
+Notice the order: stabilise production
+first, then investigate,
+
+84
+00:04:38,231 --> 00:04:40,104
+and only then fix the cause.
+
+85
+00:04:41,233 --> 00:04:44,447
+Reading is not enough. Practise in a
+safe sandbox.
+
+86
+00:04:44,817 --> 00:04:49,641
+The Git Command Master Map repository
+has an undo and reflog lab,
+
+87
+00:04:49,661 --> 00:04:54,410
+where every destructive command runs in
+a disposable repository.
+
+88
+00:04:54,780 --> 00:04:56,477
+The link is in the description.
+
+89
+00:04:56,847 --> 00:05:01,616
+Recap: restore fixes files. Reset moves
+your branch. Revert undoes
+
+90
+00:05:01,636 --> 00:05:05,824
+safely on shared branches. Reflog saves
+you when you slip.
+
+91
+00:05:06,194 --> 00:05:09,771
+Subscribe, and tell me which Git
+scenario to visualize next.
+
+92
+00:05:10,141 --> 00:05:13,637
+The labs are safe to break, so run each
+command twice:
+
+93
+00:05:13,657 --> 00:05:16,957
+once to predict the result, and once to
+confirm it.
+
