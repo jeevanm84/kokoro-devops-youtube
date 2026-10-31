@@ -1,0 +1,8 @@
+TITLE: Python: interpreted or compiled? Both. #Shorts
+
+DESCRIPTION:
+Is Python interpreted or compiled? Both: CPython compiles source to bytecode, then a virtual machine executes it on a stack. Full visual walkthrough on the channel.
+
+#Shorts #Python #Programming
+
+Full video: <paste the main video link after it is uploaded>

@@ -1,0 +1,8 @@
+PRIMARY (use this):
+How Python Actually Executes Your Code — Explained Visually
+
+ALTERNATIVES to A/B test via YouTube 'Test & compare' if available on your channel (all honest, none clickbait):
+- Python: Compiled or Interpreted? Both. Here's the Proof (Visual Guide)
+- What Really Happens When You Run a Python File? (Bytecode, VM, Stack)
+- Python Under the Hood: Bytecode, the VM and the Call Stack Explained
+Limit: 100 characters. Keep the primary keyword (Python) in the first 40 characters.

@@ -1,0 +1,10 @@
+CHANNEL NAME: Kokoro DevOps   (handle: @KokoroDevOps)
+TAGLINE: GenAI · FDE · Cloud Ops
+
+ABOUT (paste into YouTube Studio > Customization > Basic info):
+Kokoro DevOps turns software internals into clear animations and hands-on labs: Git, Docker, Kubernetes, CI/CD, cloud operations, GenAI and forward-deployed engineering (FDE). New visual explainer every week, for developers, DevOps and SRE engineers, and anyone preparing for technical interviews.
+Every technical claim is checked before publishing. Narration is AI-generated.
+Business/contact: <your email>
+
+CHANNEL KEYWORDS: kokoro devops, genai, forward deployed engineer, fde, cloud ops, python, devops, kubernetes, docker, aws, system design, sre, ci cd, software engineering, explained visually
+DEFAULTS: category Education - Visibility Private until reviewed - Language English - Made for kids: NO

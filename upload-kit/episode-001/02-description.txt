@@ -1,0 +1,30 @@
+Is Python interpreted or compiled? Both. This video shows, step by step, what CPython does between pressing Enter and seeing output: tokenizing, parsing to an AST, compiling to bytecode, executing on a stack-based virtual machine, how names bind to objects (reference counting), and how call frames build the call stack.
+
+Everything shown was checked against a real CPython 3.12 interpreter. Details differ in other implementations (e.g. PyPy) and versions.
+
+CHAPTERS
+0:00 The question
+0:17 Compiled and interpreted
+0:48 The pipeline
+1:13 Tokens and the syntax tree
+1:45 Bytecode
+2:22 The stack machine
+2:52 Names and objects
+3:36 Frames and the call stack
+4:06 Why it matters
+4:47 Recap
+
+SOURCES
+- Python docs: dis — Disassembler for Python bytecode: https://docs.python.org/3/library/dis.html
+- Python docs: Data model (objects, values, types): https://docs.python.org/3/reference/datamodel.html
+- Python docs: gc — Garbage Collector interface: https://docs.python.org/3/library/gc.html
+- PEP 3147 — PYC repository directories (__pycache__): https://peps.python.org/pep-3147/
+- PEP 617 — New PEG parser for CPython: https://peps.python.org/pep-0617/
+- What's New in Python 3.11 — Faster CPython: https://docs.python.org/3/whatsnew/3.11.html
+- PEP 659 — Specializing Adaptive Interpreter: https://peps.python.org/pep-0659/
+
+Narration is an AI-generated voice. Animations are original, built programmatically with Manim.
+
+New visual explainers on how software really works - subscribe to Kokoro DevOps.
+
+#Python #Programming #CPython

@@ -1,0 +1,5 @@
+TELUGU DESCRIPTION - DRAFT, MUST BE REVIEWED BY A NATIVE TELUGU SPEAKER BEFORE USE.
+(The video narration is in English; this line helps Telugu viewers understand what they are clicking.)
+
+పైథాన్ మీ కోడ్‌ను నిజంగా ఎలా రన్ చేస్తుంది? Interpreted ఆ, compiled ఆ? రెండూ! ఈ వీడియోలో tokenizer నుండి bytecode, virtual machine, call stack వరకు యానిమేషన్లతో చూద్దాం.
+(వీడియో ఇంగ్లీష్‌లో ఉంది. ఇంగ్లీష్ సబ్‌టైటిల్స్ అందుబాటులో ఉన్నాయి.)

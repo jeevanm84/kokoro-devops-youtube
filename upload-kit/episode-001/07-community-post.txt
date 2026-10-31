@@ -1,0 +1,4 @@
+NEW VIDEO (post after the video goes public):
+How does Python REALLY run your code? Not "interpreted" or "compiled" - both. Watch the bytecode, the stack machine and the call stack come alive. ▶ <link>
+
+POLL (post 2-3 days later) - 'What should we visualize next?': Docker containers / Kubernetes / CI-CD pipeline / Load balancer

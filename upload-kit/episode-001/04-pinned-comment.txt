@@ -1,0 +1,3 @@
+Which would you like visualized next - Docker containers, Kubernetes, CI/CD pipelines or load balancers? Reply with one word. 👇
+(Everything in this video was checked against a real CPython 3.12 interpreter. Spotted a mistake? Tell me with the timestamp and I'll pin the correction.)
+- Kokoro DevOps
